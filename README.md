@@ -80,6 +80,7 @@ class Test extends Component {
 | showViewFinder | boolean                 | `true`        | Show or hide the build in view finder. See demo                                                                                                                                                                                                                                                                                                                            |
 | constraints    | object                  | `null`          | Use custom camera constraints that the override default behavior. [MediaTrackConstraints](https://developer.mozilla.org/en-US/docs/Web/API/MediaTrackConstraints)                                                                                                                                                                                                                                                                                                                            |
 | legacyMode     | boolean                 | `false`       | If the device does not allow camera access (e.g. IOS Browsers, Safari) you can enable legacyMode to allow the user to take a picture (On a mobile device) or use an existing one. To trigger the image dialog just call the method `openImageDialog` from the parent component. **Warning** You must call the method from a user action (eg. click event on some element). |
+| binaryData     | boolean                 | `false`       | If set to true then the scan data will be returned as array of bytes. |
 
 ## Dev
 

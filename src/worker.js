@@ -2,12 +2,12 @@
 
 self.addEventListener('message', function(e) {
   var decoded = jsQR(
-    e.data.data,
-    e.data.width,
-    e.data.height
+    e.data.imageData.data,
+    e.data.imageData.width,
+    e.data.imageData.height
   )
   if (decoded) {
-    postMessage(decoded.data)
+    postMessage(e.data.binaryData ? decoded.binaryData : decoded.data)
   } else {
     postMessage(null)
   }

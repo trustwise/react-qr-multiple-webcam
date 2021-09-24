@@ -14,7 +14,7 @@ let workerBlob = createBlob([__inline('../lib/worker.js')], {
   type: 'application/javascript',
 })
 
-// Props that are allowed to change dynamicly
+// Props that are allowed to change dynamically
 const propsKeys = ['delay', 'legacyMode', 'facingMode']
 
 module.exports = class Reader extends Component {
@@ -30,6 +30,7 @@ module.exports = class Reader extends Component {
     showViewFinder: PropTypes.bool,
     style: PropTypes.any,
     className: PropTypes.string,
+    binaryData: PropTypes.bool,
     constraints: PropTypes.object
   };
   static defaultProps = {
@@ -37,6 +38,7 @@ module.exports = class Reader extends Component {
     resolution: 600,
     facingMode: 'environment',
     showViewFinder: true,
+    binaryData: false,
     constraints: null
   };
 
@@ -211,7 +213,7 @@ module.exports = class Reader extends Component {
     preview.removeEventListener('loadstart', this.handleLoadStart)
   }
   check() {
-    const { legacyMode, resolution, delay } = this.props
+    const { legacyMode, resolution, delay, binaryData } = this.props
     const { preview, canvas, img } = this.els
 
     // Get image/video dimensions
@@ -259,7 +261,7 @@ module.exports = class Reader extends Component {
 
       const imageData = ctx.getImageData(0, 0, canvas.width, canvas.height)
       // Send data to web-worker
-      this.worker.postMessage(imageData)
+      this.worker.postMessage({ imageData, binaryData })
     } else {
       // Preview not ready -> check later
       this.timeout = setTimeout(this.check, delay)
